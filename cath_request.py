@@ -41,6 +41,7 @@ class CathRequest:
         print(funfam_menu)
         self._select_family(fam_set)
 
+    #def _create_fam_menu(self):
     def _select_family(self, fam_set: set):
         while True:
             try:
