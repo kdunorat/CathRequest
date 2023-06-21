@@ -12,7 +12,13 @@ class CathCli:
             sys.exit()
         else:
             self.args: List[str] = sys.argv[1:]
-        self.usage = ''
+        self.usage = '\
+        Usage: python -m cathcli [superfamily id] [functional family id]\n \
+        Downloads the unique species in a functional family from cath database and creates a file with the name format:\
+        superfamilyID:functionalfamilyID-Species.txt \n\
+        If you input only [superfamily id] you can choose the functional family id in the menu.\
+        Pay attention to the correct formatting of entries for superfamily id and functional family id\
+        '
 
     def cli(self):
         superfamily_id = self.args[0]
