@@ -21,7 +21,7 @@ class CathCli:
     def cli(self):
         superfamily_id = self.args[0]
         cath = CathRequest(superfamily_id)
-        if superfamily_id == '-h' or '--help':
+        if superfamily_id == '-h' or superfamily_id == '--help':
             print(self.usage)
             sys.exit()
         if not _input_pattern(superfamily_id):

@@ -76,7 +76,6 @@ class CathRequest:
                 funfam_name = funfam_name[-1]
                 if funfam_name != '':
                     has_name = True
-        print(has_name)
         if not has_name:
             funfam_name = funfam_id
 
