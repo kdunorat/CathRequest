@@ -15,7 +15,7 @@ class CathCli:
         self.usage = '\
         Usage: python -m cathcli [superfamily id] [functional family id]\n \
         Downloads the unique species in a functional family from cath database and creates a file with the name format:\
-        superfamilyID:functionalfamilyID-Species.txt \n\
+        superfamilyID:functionalfamilyID-Species.stk \n\
         If you input only [superfamily id] you can choose the functional family id in the menu.\
         Pay attention to the correct formatting of entries for superfamily id and functional family id\
         '
@@ -28,11 +28,9 @@ class CathCli:
             sys.exit()
         if len(self.args) > 2:
             print(f"The maximum number of arguments is 2, you inputed {len(self.args)} arguments")
-            print(self.usage)
             sys.exit()
         elif len(self.args) < 1:
             print("You must put at least 1 argument")
-            print(self.usage)
             sys.exit()
         elif len(self.args) == 1:
             cath.run(opt=1, funfam_id=0)

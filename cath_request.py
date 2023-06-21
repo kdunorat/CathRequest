@@ -74,8 +74,9 @@ class CathRequest:
             if 'FunFam' in name.text:
                 funfam_name = name.text.split(':')
                 funfam_name = funfam_name[-1]
-                if funfam_name == '':
+                if funfam_name != '':
                     has_name = True
+        print(has_name)
         if not has_name:
             funfam_name = funfam_id
 
@@ -91,7 +92,7 @@ class CathRequest:
     def _get_species_file(self, stock_file, funfam_id: int, funfam_name: str):
         r3 = self.client.get(url=stock_file, timeout=50)
         soup3 = BeautifulSoup(r3.content, "html.parser")
-        new_file_name = f"{self.superfamily_id}:{funfam_id}-Species.txt"
+        new_file_name = f"{self.superfamily_id}:{funfam_id}-Species.stk"
         with open(new_file_name, "w", encoding="utf-8") as f:
             f.write(str(soup3))
         self._species_names(new_file_name, funfam_name)
