@@ -13,16 +13,17 @@ class CathCli:
         else:
             self.args: List[str] = sys.argv[1:]
         self.usage = '\
-        Usage: python -m cathcli [superfamily id] [functional family id]\n \
+        Usage: python -m cathcli [superfamily id] [functional family id]\n\
         Downloads the unique species in a functional family from cath database and creates a file with the name format:\
         superfamilyID:functionalfamilyID-Species.stk \n\
-        If you input only [superfamily id] you can choose the functional family id in the menu.\
-        Pay attention to the correct formatting of entries for superfamily id and functional family id\
-        '
+        If you input only [superfamily id] you can choose the functional family id in the menu.'
 
     def cli(self):
         superfamily_id = self.args[0]
         cath = CathRequest(superfamily_id)
+        if superfamily_id == '-h' or '--help':
+            print(self.usage)
+            sys.exit()
         if not _input_pattern(superfamily_id):
             print("Invalid Superfamily ID")
             sys.exit()
