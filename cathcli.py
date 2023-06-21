@@ -15,7 +15,7 @@ class CathCli:
         self.usage = '\
         Usage: python -m cathcli [superfamily id] [functional family id]\n\
         Downloads the unique species in a functional family from cath database and creates a file with the name format:\
-        superfamilyID:functionalfamilyID-Species.stk \n\
+        superfamilyID:functionalfamilyID.stk \n\
         If you input only [superfamily id] you can choose the functional family id in the menu.'
 
     def cli(self):

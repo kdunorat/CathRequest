@@ -30,7 +30,7 @@ class CathRequest:
 
     def _create_fam_menu(self, all_a):
         fam_set = set()
-        funfam_menu = f"FUNCTIONAL FAMILIES OF SUPERFAMILY: {self.superfamily_id}\n"
+        funfam_menu = f"\nFUNCTIONAL FAMILIES OF SUPERFAMILY: {self.superfamily_id}\n"
         for a in all_a[17:]:
             if 'CATH News' in a.text:
                 break
@@ -57,7 +57,7 @@ class CathRequest:
                 else:
                     print(f'The input: {input_number} is not a functional'
                           f'family in the superfamily: {self.superfamily_id}')
-                    time.sleep(1.5)
+                    time.sleep(1)
 
             except ValueError:
                 print("You must put a number representative of a functional family for this superfamily")
@@ -91,7 +91,7 @@ class CathRequest:
     def _get_species_file(self, stock_file, funfam_id: int, funfam_name: str):
         r3 = self.client.get(url=stock_file, timeout=50)
         soup3 = BeautifulSoup(r3.content, "html.parser")
-        new_file_path = f"{os.getcwd()}/{self.superfamily_id}:{funfam_id}-Species.stk"
+        new_file_path = f"{os.getcwd()}/{self.superfamily_id}:{funfam_id}.stk"
         with open(new_file_path, "w", encoding="utf-8") as f:
             f.write(str(soup3))
         new_file_name = self._get_file_name(new_file_path, 1)
