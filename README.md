@@ -1,5 +1,5 @@
 # CathRequest
-Get the unique species names from a functional family within a superfamily of proteins in cath database
+Get the stk file and unique species names from a functional family within a superfamily of proteins in cath database
 
 ## Setup
 ### 1. Download the repository and unzip
