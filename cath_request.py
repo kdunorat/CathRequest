@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-import sys
+import os
 
 
 class CathRequest:
@@ -92,13 +92,14 @@ class CathRequest:
     def _get_species_file(self, stock_file, funfam_id: int, funfam_name: str):
         r3 = self.client.get(url=stock_file, timeout=50)
         soup3 = BeautifulSoup(r3.content, "html.parser")
-        new_file_name = f"{self.superfamily_id}:{funfam_id}-Species.stk"
-        with open(new_file_name, "w", encoding="utf-8") as f:
+        new_file_path = f"{os.getcwd()}/{self.superfamily_id}:{funfam_id}-Species.stk"
+        with open(new_file_path, "w", encoding="utf-8") as f:
             f.write(str(soup3))
-        self._species_names(new_file_name, funfam_name)
+        new_file_name = self._get_file_name(new_file_path, 1)
+        self._species_names(new_file_path, new_file_name, funfam_name)
 
     @staticmethod
-    def _species_names(path: str, funfam_name: str):
+    def _species_names(path: str, file_name: str, funfam_name: str):
         specs = []
         sps_verified = set()
         sp_msg = f'\n------- UNIQUE SPECIES FROM: {funfam_name} -------\n'
@@ -113,11 +114,12 @@ class CathRequest:
             if sp not in sps_verified:
                 sp_msg += f"{sp}\n"
                 sps_verified.add(sp)
+        sp_msg += f'For more details open {file_name}'
         print(sp_msg)
 
     @staticmethod
-    def _get_file_name(href: str, house: int):
-        file_name = href.split("/")
+    def _get_file_name(path: str, house: int):
+        file_name = path.split("/")
         try:
             file_name = file_name[-house]
             return file_name
