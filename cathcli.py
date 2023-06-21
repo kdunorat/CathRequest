@@ -6,6 +6,7 @@ from cath_request import CathRequest
 
 class CathCli:
     def __init__(self):
+        sys.tracebacklimit = 0
         if len(sys.argv) < 2:
             print("Invalid Input")
             sys.exit()
