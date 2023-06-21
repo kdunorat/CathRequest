@@ -9,7 +9,7 @@ class CathRequest:
         self.client = requests.session()
         
     def _get_info(self):
-        fam_set = set()
+
         url_1 = f"http://www.cathdb.info/version/latest/superfamily/{self.superfamily_id}/alignments" 
         r1 = self.client.get(url=url_1, timeout=50)
         
@@ -23,6 +23,12 @@ class CathRequest:
         with open("arquivo.html", "w", encoding="utf-8") as f:
             f.write(str(soup))
         all_a = soup.find_all('a')
+        funfam_menu, fam_set = self._create_fam_menu(all_a)
+        print(funfam_menu)
+        self._select_family(fam_set)
+
+    def _create_fam_menu(self, all_a):
+        fam_set = set()
         funfam_menu = f"FUNCTIONAL FAMILIES OF SUPERFAMILY: {self.superfamily_id}\n"
         for a in all_a[17:]:
             if 'CATH News' in a.text:
@@ -38,10 +44,9 @@ class CathRequest:
             if file_name == 'funfam' and fam_id not in fam_set:
                 funfam_menu += f"  {fam_id} ----- {fam_name}\n"
                 fam_set.add(int(fam_id))
-        print(funfam_menu)
-        self._select_family(fam_set)
 
-    #def _create_fam_menu(self):
+        return funfam_menu, fam_set
+
     def _select_family(self, fam_set: set):
         while True:
             try:
@@ -127,11 +132,3 @@ class CathRequest:
 
 class CathInternalError(Exception):
     pass
-
-
-if __name__ == '__main__':
-    id1 = '1.10.1780.10'
-    id2 = '1.10.510.10'
-    inst = CathRequest(id2)
-    inst.run(1, 16)
-    
